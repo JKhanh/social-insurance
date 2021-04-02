@@ -26,6 +26,9 @@ public class Employee implements Serializable {
     private Date joinDate;
     private String position;
     @ManyToOne
-    @JoinColumn(name = "company_id", nullable = true)
-    private Enterprise company;
+    @JoinColumn(name = "enterprise_id", referencedColumnName = "id")
+    private Enterprise enterprise;
+    private String address;
+    private String street;
+    private Long salary;
 }
