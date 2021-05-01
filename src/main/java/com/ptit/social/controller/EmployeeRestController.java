@@ -75,10 +75,9 @@ public class EmployeeRestController {
         List<EmployeeResponse> responses = service.getEmployeeByAddress(address);
         if (!responses.isEmpty()) {
             logger.info("Get Employee success");
-            return new ResponseEntity<>(responses, HttpStatus.OK);
         } else {
             logger.error("Get Employee failed");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 }
