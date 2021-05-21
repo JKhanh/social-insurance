@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class EmployeeJPATest {
     private final Employee testEmployee =
             Employee.builder()
                     .address("Xã Nàn Xỉn-Huyện Xín Mần-Tỉnh Hà Giang")
-                    .birthday(new Date())
+                    .birthday(new Date(1996, Calendar.NOVEMBER, 14))
                     .joinDate(new Date())
                     .name("Name 1")
                     .enterprise(null)
