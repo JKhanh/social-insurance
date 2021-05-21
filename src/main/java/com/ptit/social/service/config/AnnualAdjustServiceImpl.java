@@ -34,8 +34,8 @@ public class AnnualAdjustServiceImpl implements AnnualAdjustService{
     @Override
     public AnnualAdjustDTO getLatestAnnualAdjust() {
         AnnualAdjust annualAdjust = repository.getFirstByOrderByIdDesc();
-        logger.debug(annualAdjust.toString());
         if(annualAdjust != null){
+            logger.debug(annualAdjust.toString());
             AnnualAdjustDTO response =
                     AnnualAdjustDTO.builder()
                             .adjustment(annualAdjust.getAdjustment())
