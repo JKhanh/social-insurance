@@ -59,3 +59,9 @@ CREATE TABLE IF NOT EXISTS `ward` (
                         `district_id` char(6) COLLATE utf8_unicode_ci NOT NULL,
                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS annual_adjust(
+    id INT NOT NULL AUTO_INCREMENT,
+    adjustment FLOAT NOT NULL ,
+    year INT NOT NULL,
+    PRIMARY KEY (id));
