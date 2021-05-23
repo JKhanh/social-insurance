@@ -1,5 +1,6 @@
 package com.ptit.social.controller;
 
+import com.ptit.social.model.employee.EmployeeRequest;
 import com.ptit.social.model.employee.EmployeeResponse;
 import com.ptit.social.service.employee.EmployeeService;
 import com.ptit.social.validation.AddressValidation;
@@ -71,13 +72,24 @@ public class EmployeeRestController {
         }
     }
 
-    private ResponseEntity<?> findEmployeeByAddress(String address) {
-        List<EmployeeResponse> responses = service.getEmployeeByAddress(address);
-        if (!responses.isEmpty()) {
-            logger.info("Get Employee success");
+private ResponseEntity<?> findEmployeeByAddress(String address) {
+    List<EmployeeResponse> responses = service.getEmployeeByAddress(address);
+    if (!responses.isEmpty()) {
+        logger.info("Get Employee success");
         } else {
             logger.error("Get Employee failed");
         }
         return new ResponseEntity<>(responses, HttpStatus.OK);
+    }
+
+    @PostMapping(produces = "application/json")
+    public ResponseEntity<?> addNewEmployee(@RequestBody EmployeeRequest request){
+        List<String> errorList = employeeValidation.validate(request);
+        logger.debug("Controller receive " + request);
+        if(errorList.isEmpty()){
+            EmployeeResponse response = service.addNewEmployee(request);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(errorList, HttpStatus.BAD_REQUEST);
     }
 }

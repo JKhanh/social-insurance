@@ -27,7 +27,7 @@ public class AnnualAdjustController {
     private AnnualAdjustValidation validation;
 
     @PostMapping(produces = "application/json")
-    private ResponseEntity<?> saveAnnualAdjust(AnnualAdjustDTO request){
+    private ResponseEntity<?> saveAnnualAdjust(@RequestBody AnnualAdjustDTO request){
         List<String> errors = validation.validate(request);
         if(errors.isEmpty()){
             boolean isSaved = service.addAnnualAdjust(request);
