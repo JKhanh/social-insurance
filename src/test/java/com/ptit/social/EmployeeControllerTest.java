@@ -16,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -23,6 +24,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class EmployeeControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    // Test Case Success
+    @Test
+    public void getAllEmployeeSuccess() throws Exception{
+        MvcResult result = mockMvc.perform(get("/api/v1/employee/"))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful())
+                .andReturn();
+
+        List<EmployeeResponse> responses = new ObjectMapper().readValue(
+                result.getResponse().getContentAsString(),
+                new TypeReference<List<EmployeeResponse>>() {});
+        assertThat(responses).isNotNull();
+    }
 
     @Test
     public void getEmployeeAtAddressCorrect() throws Exception{
@@ -34,6 +48,22 @@ public class EmployeeControllerTest {
                 .param("province", province)
                 .param("district", district)
                 .param("ward", ward))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful())
+                .andReturn();
+
+        List<EmployeeResponse> responses = new ObjectMapper().readValue(
+                result.getResponse().getContentAsString(),
+                new TypeReference<List<EmployeeResponse>>() {});
+        assertThat(responses.get(0).getName()).isEqualTo("e");
+    }
+
+    @Test
+    public void getEmployeeAtSingleAddress() throws Exception{
+        String address = "Huyện Xín Mần";
+
+        MvcResult result = mockMvc.perform(get("/api/v1/employee")
+                .param("address", address))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
@@ -62,45 +92,74 @@ public class EmployeeControllerTest {
                 result.getResponse().getContentAsString(),
                 new TypeReference<List<EmployeeResponse>>() {});
 
-        assertThat(responses.size()).isEqualTo(0);
+        assertThat(responses).isEmpty();
     }
 
+    // Test Case Failed
     @Test
     public void getEmployeeAtMissingWard() throws Exception{
         String province = "Tỉnh Hà Giang";
         String district = "Huyện Xín Mần";
+        String ward = "";
 
         mockMvc.perform(get("/api/v1/employee/full")
                 .param("province", province)
-                .param("district", district))
+                .param("district", district)
+                .param("ward", ward))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(status().reason(containsString("parameter 'ward' is not present")));
+                .andExpect(content().string(containsString("Missing parameters")));
     }
 
     @Test
     public void getEmployeeAtMissingDistrict() throws Exception{
         String province = "Tỉnh Hà Giang";
+        String district = "";
         String ward = "Xã Trung Thịnh";
 
         mockMvc.perform(get("/api/v1/employee/full")
                 .param("province", province)
-                .param("ward", ward))
-                .andDo(print())
-                .andExpect(status().isBadRequest())
-                .andExpect(status().reason(containsString("parameter 'district' is not present")));
-    }
-
-    @Test
-    public void getEmployeeAtMissingProvince() throws Exception{
-        String district = "Huyện Xín Mần";
-        String ward = "Xã Trung Thịnh";
-
-        mockMvc.perform(get("/api/v1/employee/full")
                 .param("district", district)
                 .param("ward", ward))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(status().reason(containsString("parameter 'province' is not present")));
+                .andExpect(content().string(containsString("Missing parameters")));
+    }
+
+    @Test
+    public void getEmployeeAtMissingProvince() throws Exception{
+        String province = "";
+        String district = "Huyện Xín Mần";
+        String ward = "Xã Trung Thịnh";
+
+        mockMvc.perform(get("/api/v1/employee/full")
+                .param("province", province)
+                .param("district", district)
+                .param("ward", ward))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("Missing parameters")));
+    }
+
+    @Test
+    public void getEmployeeAtWrongAddressFormat() throws Exception{
+        String address = "-";
+
+        mockMvc.perform(get("/api/v1/employee")
+            .param("address", address))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("Not a valid address")));
+    }
+
+    @Test
+    public void getEmployeeAtEmptyAddress() throws Exception{
+        String address = "";
+
+        mockMvc.perform(get("/api/v1/employee")
+                .param("address", address))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("Missing address")));
     }
 }
