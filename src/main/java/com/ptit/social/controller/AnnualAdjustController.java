@@ -30,9 +30,9 @@ public class AnnualAdjustController {
     private ResponseEntity<?> saveAnnualAdjust(@RequestBody AnnualAdjustDTO request){
         List<String> errors = validation.validate(request);
         if(errors.isEmpty()){
-            boolean isSaved = service.addAnnualAdjust(request);
-            if(isSaved){
-                return new ResponseEntity<>(HttpStatus.OK);
+            AnnualAdjustDTO response = service.addAnnualAdjust(request);
+            if(response != null){
+                return new ResponseEntity<>(response, HttpStatus.OK);
             }
             else return new ResponseEntity<>(HttpStatus.SEE_OTHER);
         }
