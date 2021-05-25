@@ -65,3 +65,23 @@ CREATE TABLE IF NOT EXISTS annual_adjust(
     adjustment FLOAT NOT NULL ,
     year INT NOT NULL,
     PRIMARY KEY (id));
+
+CREATE TABLE IF NOT EXISTS min_salary(
+     id INT NOT NULL AUTO_INCREMENT,
+     area VARCHAR(100) NOT NULL ,
+     type INT NOT NULL ,
+     salary FLOAT NOT NULL ,
+     PRIMARY KEY (id)
+);
+
+DELETE FROM min_salary;
+ALTER TABLE min_salary AUTO_INCREMENT =1;
+
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 1', 1, 4420000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 1', 2, 3920000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 1', 3, 3430000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 1', 4, 3070000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 2', 1, 4729000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 2', 2, 4194000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 2', 3, 3670000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 2', 4, 3284000);

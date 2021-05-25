@@ -18,17 +18,23 @@ public class AnnualAdjustServiceImpl implements AnnualAdjustService{
     private AnnualAdjustRepository repository;
 
     @Override
-    public boolean addAnnualAdjust(AnnualAdjustDTO request) {
+    public AnnualAdjustDTO addAnnualAdjust(AnnualAdjustDTO request) {
         if(request != null) {
             AnnualAdjust domain = AnnualAdjust.builder()
                     .adjustment(request.getAdjustment())
                     .year(request.getYear())
                     .build();
-            repository.save(domain);
-            return true;
+            AnnualAdjust annualAdjust = repository.save(domain);
+            if(annualAdjust != null){
+                return AnnualAdjustDTO.builder()
+                        .adjustment(annualAdjust.getAdjustment())
+                        .year(annualAdjust.getYear())
+                        .build();
+            }
+            return null;
         }
 
-        return false;
+        return null;
     }
 
     @Override
