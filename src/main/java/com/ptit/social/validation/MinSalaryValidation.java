@@ -10,13 +10,13 @@ import java.util.List;
 public class MinSalaryValidation {
     public List<String> validate(MinSalary request){
         List<String> errors = new ArrayList<>();
-        if(request.getId() < 0){
+        if(request.getId() < 0 || request.getId() > 8){
             errors.add("ID " + request.getId() + " not found");
         }
         if(request.getArea().isEmpty()){
             errors.add("Area is empty");
         }
-        if(request.getType() < 0 || request.getType() > 4){
+        if(request.getType() < 1 || request.getType() > 4){
             errors.add("Wrong type");
         }
         if(request.getSalary() < 0){
