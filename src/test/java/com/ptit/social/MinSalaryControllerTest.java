@@ -49,7 +49,6 @@ public class MinSalaryControllerTest {
                 new TypeReference<List<MinSalary>>() {});
 
         assertThat(response.size()).isEqualTo(8);
-        minSalary = response.get(3);
     }
 
     private void prepareData() throws Exception{
@@ -157,10 +156,10 @@ public class MinSalaryControllerTest {
 
     @Test
     @Order(7)
-    public void updateTypeGreaterThan4() throws Exception{
+    public void updateTypeGreaterThan2() throws Exception{
         prepareData();
         int type = minSalary.getType();
-        minSalary.setType(5);
+        minSalary.setType(3);
 
         mockMvc.perform(put("/api/v1/minsalary/")
                 .contentType(MediaType.APPLICATION_JSON)

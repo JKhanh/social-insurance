@@ -78,10 +78,10 @@ DELETE FROM min_salary;
 ALTER TABLE min_salary AUTO_INCREMENT =1;
 
 INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 1', 1, 4420000);
-INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 1', 2, 3920000);
-INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 1', 3, 3430000);
-INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 1', 4, 3070000);
-INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 2', 1, 4729000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 2', 1, 3920000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 3', 1, 3430000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 4', 1, 3070000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 1', 2, 4729000);
 INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 2', 2, 4194000);
-INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 2', 3, 3670000);
-INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 2', 4, 3284000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 3', 2, 3670000);
+INSERT INTO min_salary (area, type, salary) VALUES ('Vùng 4', 2, 3284000);
