@@ -16,7 +16,7 @@ public class MinSalaryValidation {
         if(request.getArea().isEmpty()){
             errors.add("Area is empty");
         }
-        if(request.getType() < 1 || request.getType() > 4){
+        if(request.getType() < 1 || request.getType() > 2){
             errors.add("Wrong type");
         }
         if(request.getSalary() < 0){
